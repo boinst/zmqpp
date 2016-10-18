@@ -19,6 +19,8 @@
 #include "inet.hpp"
 #include "message.hpp"
 
+#pragma comment(lib, "Ws2_32.lib")
+
 namespace zmqpp
 {
 
