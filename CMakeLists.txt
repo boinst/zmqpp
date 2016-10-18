@@ -104,16 +104,12 @@ set( LIBZMQPP_SOURCES
 if (ZMQPP_BUILD_STATIC)
   add_library( zmqpp-static STATIC ${LIBZMQPP_SOURCES})
   if (NOT ZMQPP_LIBZMQ_CMAKE)
-    find_library(ZEROMQ_LIBRARY_STATIC ${ZMQPP_LIBZMQ_NAME_STATIC} PATHS ${ZEROMQ_LIB_DIR})
-    if (NOT ZEROMQ_LIBRARY_STATIC)
-      # If libzmq was not installed through CMake, the static binary is libzmq.a not libzmq-static.a
-      find_library(ZEROMQ_LIBRARY_STATIC libzmq.a PATHS ${ZEROMQ_LIB_DIR})
-    endif()
-    target_link_libraries( zmqpp-static ${ZEROMQ_LIBRARY_STATIC})
+    find_library(ZEROMQ_LIBRARY_SHARED ${ZMQPP_LIBZMQ_NAME_SHARED} PATHS ${ZEROMQ_LIB_DIR})
+    target_link_libraries( zmqpp-static ${ZEROMQ_LIBRARY_SHARED})
   else()
     # libzmq-static is the name of the target from
     # libzmq's CMake
-    target_link_libraries(zmqpp-static libzmq-static)
+    target_link_libraries(zmqpp-static libzmq)
   endif()
   list( APPEND INSTALL_TARGET_LIST zmqpp-static)
   set( LIB_TO_LINK_TO_EXAMPLES zmqpp-static )
